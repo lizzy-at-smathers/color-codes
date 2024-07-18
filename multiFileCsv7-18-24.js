@@ -1,44 +1,5 @@
 #target photoshop
 
-
-
-var s2t = stringIDToTypeID,
-    t2s = typeIDToStringID,
-    colorsObj = {},
-    colorsArr = [];
-
-
-
-// Get all open documents in Photoshop
-var documents = app.documents;
-
-// Array to store document names
-var documentNames = [];
-
-// Loop through each open document
-for (var i = 0; i < documents.length; i++) {
-    var doc = documents[i];
-    // Get document name and add to array
-    documentNames.push(fullColorCode());
-    documentNames.push("\n");
-}
-
-// Write document names to a CSV file
-var csvFile = File(Folder.desktop.csvFilesName + "/" + activeDocument.name.replace(/\.[0-9a-z]+$/i, '') + '.csv');
-csvFile = csvFile.saveDlg('Save file', '*.csv,*.htm');
-csvFile.open("w");
-csvFile.writeln("Document Names");
-
-for (var j = 0; j < documentNames.length; j++) {
-    csvFile.writeln(documentNames[j]);
-}
-
-csvFile.close();
-
-// Alert when process completes
-alert("Document names saved to CSV file.");
-
-
 const colorLibrary = {
     'ffffff': {
         name: 'White',
@@ -1225,6 +1186,47 @@ const colorLibrary = {
     },
 
 };
+
+
+var s2t = stringIDToTypeID,
+    t2s = typeIDToStringID,
+    colorsObj = {},
+    colorsArr = [];
+    missingColors = [];
+
+
+
+// Get all open documents in Photoshop
+var documents = app.documents;
+
+// Array to store document names
+var documentNames = [];
+
+// Loop through each open document
+for (var i = 0; i < documents.length; i++) {
+    var doc = documents[i];
+    // Get document name and add to array
+    documentNames.push(doc.name);
+    documentNames.push(fullColorCode());
+   /// documentNames.push("\n");
+}
+
+// Write document names to a CSV file
+var csvFile = File(Folder.desktop.csvFilesName + "/" + activeDocument.name.replace(/\.[0-9a-z]+$/i, '') + '.csv');
+csvFile = csvFile.saveDlg('Save file', '*.csv,*.htm');
+csvFile.open("w");
+csvFile.writeln("Document Names");
+
+for (var j = 0; j < documentNames.length; j++) {
+    csvFile.writeln(documentNames[j]);
+}
+
+csvFile.close();
+
+// Alert when process completes
+alert("Document names saved to CSV file.");
+
+
 
 function fullColorCode() {
     (r = new ActionReference()).putProperty(s2t('property'), p = s2t('mode'));
