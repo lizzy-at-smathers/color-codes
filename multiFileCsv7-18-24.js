@@ -89,7 +89,7 @@ function fullColorCode() {
         colorList.sort(function (a, b) { return a.Classification - b.Classification });
         for (var i in colorLibrary) {
             //extantColors.push(shadowLibrary[i].name, shadowLibrary[i].stitchCount)
-            extantColors.push((shadowLibrary[i].stitchCount / (pixelCounter * 100)) + '%');
+            extantColors.push(((shadowLibrary[i].stitchCount / pixelCounter) * 100) + '%');
         }
 
         finalArr = extantColors.toString()
