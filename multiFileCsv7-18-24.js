@@ -57,45 +57,44 @@ function fullColorCode() {
         f.close();
         f.remove();
 
-        //ignore greenscreen
+        // ignore greenscreen
         for (var a in colorsObj) {
             if (a != '933599') { colorsArr.push({ pixels: colorsObj[a], hex: a }) }
         };
-        //creates an empty variable for counting total number of pixels
-        var pixelCounter = 0
-        //counts total pixels
+        
+        // count total pixels in image
+        var pixelCounter = 0;
         for (var i = 0; i < colorsArr.length; i++) {
-            var pixelCounter = pixelCounter + colorsArr[i].pixels
+            pixelCounter = pixelCounter + colorsArr[i].pixels;
         }
+
+        // go through the color array 
         var shadowLibrary = clone(colorLibrary)
-        //go through the color array 
         for (var i = 0; i < colorsArr.length; i++) {
             var swatchColor = colorsArr[i].hex;
             var libEntry = shadowLibrary[swatchColor];
             if (libEntry) {
                 shadowLibrary[swatchColor].stitchCount = colorsArr[i].pixels;
-            }
-            else {
+            } else {
                 missingColors.push("Undefined - " + swatchColor);
             }
         }
+        
         var colorList = [];
         var extantColors = [];
         for (var i in shadowLibrary) {
             colorList.push(shadowLibrary[i].stitchCount);
         }
+        
         colorList.sort(function (a, b) { return a.Classification - b.Classification });
         for (var i in colorLibrary) {
             //extantColors.push(shadowLibrary[i].name, shadowLibrary[i].stitchCount)
-        extantColors.push(shadowLibrary[i].stitchCount / pixelCounter * 100 + '%');
+            extantColors.push((shadowLibrary[i].stitchCount / (pixelCounter * 100)) + '%');
         }
 
         finalArr = extantColors.toString()
         return finalArr
-
-
     }
-
 }
 
 function readColors(s, colorsObj) {
@@ -121,13 +120,12 @@ function clone(obj) {
     for (var key in obj) { 
         if (obj[key] instanceof Object) { 
             cloned[key] = clone(obj[key]);
+         } else { 
+            cloned[key] = obj[key];
          } 
-         else { cloned[key] = obj[key]; 
-
-         } 
-        } return cloned; }
-
-
+    }
+    return cloned; 
+}
 
 function getColorLibrary() {
     return {
