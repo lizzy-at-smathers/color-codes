@@ -1,4 +1,4 @@
-var _in = {a: {b: 2, c: {d: 3}}};
+var _in = {a: {b: 2, c: {d: 3, colorCode: "something"}}, colorCode: "something"};
 
 var out = clone(_in);
 
