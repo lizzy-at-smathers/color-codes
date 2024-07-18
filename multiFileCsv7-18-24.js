@@ -17,7 +17,7 @@ var docContents = [];
 // Loop through each open document
 for (var i = 0; i < documents.length; i++) {
     var doc = documents[i];
-   
+    app.activeDocument = doc
     // Get document name and add to array
     docContents.push(doc.name);
     docContents.push(fullColorCode());
@@ -86,8 +86,10 @@ function fullColorCode() {
         }
         colorList.sort(function (a, b) { return a.Classification - b.Classification });
         for (var i in colorLibrary) {
-            extantColors.push(shadowLibrary[i].stitchCount / pixelCounter * 100 + '%')
+            //extantColors.push(shadowLibrary[i].name, shadowLibrary[i].stitchCount)
+        extantColors.push(shadowLibrary[i].stitchCount / pixelCounter * 100 + '%');
         }
+
         finalArr = extantColors.toString()
         return finalArr
 
