@@ -118,7 +118,7 @@ function deltaE(a, b) {
 function clone(obj) { 
     var cloned = {}; 
     for (var key in obj) { 
-        if (obj[key] instanceof Object) { 
+        if (obj[key].colorCode) { 
             cloned[key] = clone(obj[key]);
          } else { 
             cloned[key] = obj[key];
